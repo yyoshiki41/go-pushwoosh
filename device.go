@@ -22,6 +22,7 @@ const (
 // Device is a struct to register device.
 type Device struct {
 	Type       int64  `json:"device_type"`
+	PushToken  string `json:"push_token"`
 	HardWareID string `json:"hwid"`
 	Language   string `json:"language,omitempty"`
 	Timezone   int64  `json:"timezone,omitempty"`
