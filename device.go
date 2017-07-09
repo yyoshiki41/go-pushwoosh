@@ -32,6 +32,7 @@ type Device struct {
 // http://docs.pushwoosh.com/docs/registerdevice
 func (c *Client) RegisterDevice(ctx context.Context, device *Device) (*Result, error) {
 	var result Result
+
 	err := c.call(ctx, http.MethodPost, "registerDevice", device, &result)
 	if err != nil {
 		return nil, err

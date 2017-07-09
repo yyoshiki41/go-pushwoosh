@@ -63,15 +63,20 @@ func (c *Client) call(ctx context.Context, method string, apiEndpoint string, pa
 	}
 	u.Path = path.Join(u.Path, apiV13, apiEndpoint)
 
-	jsonData, err := json.Marshal(params)
+	p, err := newRequestParams(
+		c.config.ApplicationCode, c.config.AccessToken, params)
 	if err != nil {
 		return err
 	}
-	req, err := http.NewRequest(method, u.String(), bytes.NewBuffer(jsonData))
+	jsonParams, err := json.Marshal(p)
 	if err != nil {
 		return err
 	}
 
+	req, err := http.NewRequest(method, u.String(), bytes.NewBuffer(jsonParams))
+	if err != nil {
+		return err
+	}
 	req.Header.Set("Content-Type", "application/json")
 	req = req.WithContext(ctx)
 
@@ -85,6 +90,24 @@ func (c *Client) call(ctx context.Context, method string, apiEndpoint string, pa
 		return nil
 	}
 	return json.NewDecoder(response.Body).Decode(&res)
+}
+
+type requestParams map[string]interface{}
+
+func newRequestParams(application, auth string, params interface{}) (*requestParams, error) {
+	var reqParams requestParams
+
+	jsonParams, err := json.Marshal(params)
+	if err != nil {
+		return nil, err
+	}
+	if err := json.Unmarshal(jsonParams, &reqParams); err != nil {
+		return nil, err
+	}
+
+	reqParams["application"] = application
+	reqParams["auth"] = auth
+	return &reqParams, nil
 }
 
 // SetHTTPClient overrides the default HTTP client.
