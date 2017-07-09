@@ -5,8 +5,8 @@ import (
 	"net/http"
 )
 
+// Possible device types
 const (
-	// Possible device types
 	DeviceTypeIOS          = 1
 	DeviceTypeBB           = 2
 	DeviceTypeAndroid      = 3

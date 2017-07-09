@@ -1,6 +1,6 @@
 # go-pushwoosh
 
-The Pushwoosh Remote APIs Client Library for Go
+The Pushwoosh Remote APIs Client for Go
 
 [![godoc](https://godoc.org/github.com/yyoshiki41/go-pushwoosh?status.svg)](https://godoc.org/github.com/yyoshiki41/go-pushwoosh)
 [![build](https://travis-ci.org/yyoshiki41/go-pushwoosh.svg?branch=master)](https://travis-ci.org/yyoshiki41/go-pushwoosh)
