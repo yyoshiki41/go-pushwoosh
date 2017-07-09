@@ -37,8 +37,8 @@ type Result struct {
 
 // Client represents an API client for Pushwoosh.
 type Client struct {
-	http.Client
-	config *Config
+	httpClient *http.Client
+	config     *Config
 }
 
 // NewClient returns a new pushwoosh API client.
@@ -51,8 +51,8 @@ func NewClient(config *Config) (*Client, error) {
 	}
 
 	return &Client{
-		Client: httpClient,
-		config: config,
+		httpClient: httpClient,
+		config:     config,
 	}, nil
 }
 
@@ -75,7 +75,7 @@ func (c *Client) call(ctx context.Context, method string, apiEndpoint string, pa
 	req.Header.Set("Content-Type", "application/json")
 	req = req.WithContext(ctx)
 
-	response, err := c.Do(req)
+	response, err := c.httpClient.Do(req)
 	if err != nil {
 		return err
 	}
