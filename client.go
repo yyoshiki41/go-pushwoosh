@@ -63,11 +63,13 @@ func (c *Client) call(ctx context.Context, method string, apiEndpoint string, pa
 	}
 	u.Path = path.Join(u.Path, apiV13, apiEndpoint)
 
-	p, err := newRequestParams(
-		c.config.ApplicationCode, c.config.AccessToken, params)
+	p, err := newRequestParams(params)
 	if err != nil {
 		return err
 	}
+	p.setApplication(c.config.ApplicationCode)
+	p.setAuth(c.config.AccessToken)
+
 	jsonParams, err := json.Marshal(p)
 	if err != nil {
 		return err
@@ -94,20 +96,26 @@ func (c *Client) call(ctx context.Context, method string, apiEndpoint string, pa
 
 type requestParams map[string]interface{}
 
-func newRequestParams(application, auth string, params interface{}) (*requestParams, error) {
+func newRequestParams(params interface{}) (*requestParams, error) {
 	var reqParams requestParams
 
 	jsonParams, err := json.Marshal(params)
 	if err != nil {
 		return nil, err
 	}
+
 	if err := json.Unmarshal(jsonParams, &reqParams); err != nil {
 		return nil, err
 	}
-
-	reqParams["application"] = application
-	reqParams["auth"] = auth
 	return &reqParams, nil
+}
+
+func (c *requestParams) setApplication(application string) {
+	c["application"] = application
+}
+
+func (c *requestParams) setAuth(auth string) {
+	c["auth"] = auth
 }
 
 // SetHTTPClient overrides the default HTTP client.
