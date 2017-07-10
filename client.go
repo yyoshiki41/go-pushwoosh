@@ -110,12 +110,12 @@ func newRequestParams(params interface{}) (*requestParams, error) {
 	return &reqParams, nil
 }
 
-func (c *requestParams) setApplication(application string) {
-	c["application"] = application
+func (p *requestParams) setApplication(application string) {
+	p["application"] = application
 }
 
-func (c *requestParams) setAuth(auth string) {
-	c["auth"] = auth
+func (p *requestParams) setAuth(auth string) {
+	p["auth"] = auth
 }
 
 // SetHTTPClient overrides the default HTTP client.
