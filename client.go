@@ -111,11 +111,11 @@ func newRequestParams(params interface{}) (*requestParams, error) {
 }
 
 func (p *requestParams) setApplication(application string) {
-	p["application"] = application
+	(*p)["application"] = application
 }
 
 func (p *requestParams) setAuth(auth string) {
-	p["auth"] = auth
+	(*p)["auth"] = auth
 }
 
 // SetHTTPClient overrides the default HTTP client.
