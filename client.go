@@ -63,12 +63,10 @@ func (c *Client) call(ctx context.Context, method string, apiEndpoint string, pa
 	}
 	u.Path = path.Join(u.Path, apiV13, apiEndpoint)
 
-	p, err := newRequestParams(params)
+	p, err := newRequestParams(c.config.ApplicationCode, c.config.AccessToken, params)
 	if err != nil {
 		return err
 	}
-	p.setApplication(c.config.ApplicationCode)
-	p.setAuth(c.config.AccessToken)
 
 	jsonParams, err := json.Marshal(p)
 	if err != nil {
@@ -96,18 +94,22 @@ func (c *Client) call(ctx context.Context, method string, apiEndpoint string, pa
 
 type requestParams map[string]interface{}
 
-func newRequestParams(params interface{}) (*requestParams, error) {
-	var reqParams requestParams
-
+func newRequestParams(application, auth string, params interface{}) (requestParams, error) {
 	jsonParams, err := json.Marshal(params)
 	if err != nil {
 		return nil, err
 	}
 
-	if err := json.Unmarshal(jsonParams, &reqParams); err != nil {
+	var reqValues map[string]interface{}
+	if err := json.Unmarshal(jsonParams, &reqValues); err != nil {
 		return nil, err
 	}
-	return &reqParams, nil
+	reqValues["application"] = application
+	reqValues["auth"] = auth
+
+	return requestParams{
+		"request": reqValues,
+	}, nil
 }
 
 func (p *requestParams) setApplication(application string) {
