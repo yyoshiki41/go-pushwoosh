@@ -8,6 +8,49 @@ The Pushwoosh Remote APIs Client for Go
 
 - [Official Documentation](http://docs.pushwoosh.com/docs/createmessage)
 
+## Requirements
+
+- Go v1.7+
+
+## Usage
+
+```go
+package main
+
+import (
+	"context"
+
+	"github.com/yyoshiki41/go-pushwoosh"
+)
+
+func main() {
+	// Set config
+	conf := pushwoosh.Config{
+		Endpoint:        "https://cp.pushwoosh.com/json",
+		ApplicationCode: "aaaaa-00000",
+		AccessToken:     "xxx",
+	}
+
+	// Create a new client
+	client, err := pushwoosh.NewClient(&conf)
+	if err != nil {
+		return err
+	}
+
+	// Create a Message struct
+	msg := pushwoosh.Message{
+		Content:   "content is here",
+		SendDate:  "now",
+		Devices:   []string{"hogehogehge"},
+		IOSBadges: "+1",
+	}
+	msgs := []pushwoosh.Message{msg}
+
+	// Call pushwoosh API
+	client.CreateMessage(context.Background(), &msgs)
+}
+```
+
 ### REMOTE APIs
 
 ✅ /createMessage
