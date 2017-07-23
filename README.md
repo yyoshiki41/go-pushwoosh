@@ -19,6 +19,7 @@ package main
 
 import (
 	"context"
+	"log"
 
 	"github.com/yyoshiki41/go-pushwoosh"
 )
@@ -34,24 +35,27 @@ func main() {
 	// Create a new client
 	client, err := pushwoosh.NewClient(&conf)
 	if err != nil {
-		return err
+		log.Fatal(err)
 	}
 
 	// Create a Message struct
 	msg := pushwoosh.Message{
 		Content:   "content is here",
 		SendDate:  "now",
-		Devices:   []string{"hogehogehge"},
+		Devices:   []string{"Hardware ID is here"},
 		IOSBadges: "+1",
 	}
 	msgs := []pushwoosh.Message{msg}
 
 	// Call pushwoosh API
-	client.CreateMessage(context.Background(), &msgs)
+	_, err = client.CreateMessage(context.Background(), &msgs)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 ```
 
-### REMOTE APIs
+## REMOTE APIs
 
 ✅ /createMessage
 - [ ] /deleteMessage
