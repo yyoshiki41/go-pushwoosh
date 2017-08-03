@@ -30,9 +30,14 @@ type Config struct {
 
 // Result represents API Response for Pushwoosh.
 type Result struct {
-	StatusCode    int64  `json:"status_code"`
-	StatusMessage string `json:"status_message"`
-	Response      string `json:"response"`
+	StatusCode    int64            `json:"status_code"`
+	StatusMessage string           `json:"status_message"`
+	Response      ResponseMessages `json:"response"`
+}
+
+// ResponseMessages represents messages from Pushwoosh API
+type ResponseMessages struct {
+	Messages []string `json:"Messages"`
 }
 
 // Client represents an API client for Pushwoosh.
