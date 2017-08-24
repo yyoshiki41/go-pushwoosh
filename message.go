@@ -6,17 +6,18 @@ import (
 )
 
 type Message struct {
-	Content            string   `json:"content"`
-	SendDate           string   `json:"send_date,omitempty"`
-	Devices            []string `json:"devices,omitempty"`
-	Users              []string `json:"users,omitempty"`
-	Campaign           string   `json:"campaign,omitempty"`
-	IOSBadges          string   `json:"ios_badges,omitempty"`
-	TimeZone           string   `json:"timezone,omitempty"`
-	IgnoreUserTimezone bool     `json:"ignore_user_timezone,omitempty"`
-	Platforms          []int64  `json:"platforms,omitempty"`
-	Preset             string   `json:"preset,omitempty"`
-	SendRate           int64    `json:"send_rate,omitempty"`
+	Content            string                 `json:"content"`
+	SendDate           string                 `json:"send_date,omitempty"`
+	Devices            []string               `json:"devices,omitempty"`
+	Users              []string               `json:"users,omitempty"`
+	Data               map[string]interface{} `json:"data,omitempty"` // key/value pair
+	Campaign           string                 `json:"campaign,omitempty"`
+	IOSBadges          string                 `json:"ios_badges,omitempty"`
+	TimeZone           string                 `json:"timezone,omitempty"`
+	IgnoreUserTimezone bool                   `json:"ignore_user_timezone,omitempty"`
+	Platforms          []int64                `json:"platforms,omitempty"`
+	Preset             string                 `json:"preset,omitempty"`
+	SendRate           int64                  `json:"send_rate,omitempty"`
 }
 
 // CreateMessage creates a new push message.
