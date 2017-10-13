@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// Message is a struct to create messages.
 type Message struct {
 	Content            string                 `json:"content"`
 	SendDate           string                 `json:"send_date,omitempty"`
