@@ -62,7 +62,9 @@ func main() {
 - [ ] /getMessageDetails
 
 ✅ /registerDevice
-- [ ] /unregisterDevice
+
+✅  /unregisterDevice
+
 - [ ] /addTag
 - [ ] /deleteTag
 - [ ] /listTags
