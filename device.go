@@ -39,3 +39,18 @@ func (c *Client) RegisterDevice(ctx context.Context, device *Device) (*Result, e
 	}
 	return &result, nil
 }
+
+// DeregisterDevice removes device from the application.
+// http://docs.pushwoosh.com/docs/unregisterdevice
+func (c *Client) DeregisterDevice(ctx context.Context, hardWareID string) (*Result, error) {
+	var result Result
+	hwID := map[string]string{
+		"hwid": hardWareID,
+	}
+
+	err := c.call(ctx, http.MethodPost, "unregisterDevice", hwID, &result)
+	if err != nil {
+		return nil, err
+	}
+	return &result, nil
+}
