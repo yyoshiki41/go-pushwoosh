@@ -37,7 +37,8 @@ type Result struct {
 
 // ResponseMessages represents messages from Pushwoosh API
 type ResponseMessages struct {
-	Messages []string `json:"Messages"`
+	Messages       []string            `json:"Messages"`
+	UnknownDevices map[string][]string `json:"UnknownDevices"`
 }
 
 // Client represents an API client for Pushwoosh.
