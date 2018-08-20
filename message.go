@@ -13,12 +13,15 @@ type Message struct {
 	Users              []string               `json:"users,omitempty"`
 	Data               map[string]interface{} `json:"data,omitempty"` // key/value pair
 	Campaign           string                 `json:"campaign,omitempty"`
-	IOSBadges          string                 `json:"ios_badges,omitempty"`
 	TimeZone           string                 `json:"timezone,omitempty"`
 	IgnoreUserTimezone bool                   `json:"ignore_user_timezone,omitempty"`
 	Platforms          []int64                `json:"platforms,omitempty"`
 	Preset             string                 `json:"preset,omitempty"`
 	SendRate           int64                  `json:"send_rate,omitempty"`
+	// iOS related
+	IOSBadges string `json:"ios_badges,omitempty"` // integer or use "+n" or "-n" to increment/decrement the badge value by n
+	// Android related
+	AndroidBadges string `json:"android_badges,omitempty"` // integer or use "+n" or "-n" to increment/decrement the badge value by n
 }
 
 // CreateMessage creates a new push message.
