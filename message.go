@@ -7,7 +7,6 @@ import (
 
 // Message is a struct to create messages.
 type Message struct {
-	Content            string                 `json:"content"`
 	SendDate           string                 `json:"send_date,omitempty"`
 	Devices            []string               `json:"devices,omitempty"`
 	Users              []string               `json:"users,omitempty"`
@@ -22,6 +21,16 @@ type Message struct {
 	IOSBadges string `json:"ios_badges,omitempty"` // integer or use "+n" or "-n" to increment/decrement the badge value by n
 	// Android related
 	AndroidBadges string `json:"android_badges,omitempty"` // integer or use "+n" or "-n" to increment/decrement the badge value by n
+
+	// Added fields
+	Link          string            `json:"link"`
+	MinimizeLink  int32             `json:"minimize_link"`
+	IosTitle      string            `json:"ios_title"`
+	AndroidHeader string            `json:"android_header"`
+	IosTtl        int32             `json:"ios_ttl"`
+	AndroidGcmTtl int32             `json:"android_gcm_ttl"`
+	Attachment    string            `json:"attachment"`
+	Content       map[string]string `json:"content"`
 }
 
 // CreateMessage creates a new push message.
